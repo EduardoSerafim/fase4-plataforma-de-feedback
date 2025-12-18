@@ -4,6 +4,7 @@ import br.com.fiap.gh.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,28 @@ public class AuthenticationService {
         String jwt = jwtService.generateToken((UserDetails) auth.getPrincipal());
 
         return jwt;
+    }
+
+    public String getAuthUsername() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null || !auth.isAuthenticated()) {
+            return null;
+        }
+
+        Object principal = auth.getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        } else {
+            // em alguns casos principal é só o nome
+            return principal.toString();
+        }
+    }
+
+    public String generateNewToken(String username) {
+        return jwtService.generateToken(username);
     }
 
 //    public void validarToken(String authorization) {
