@@ -1,8 +1,8 @@
 package br.com.fiap.gh.security;
 
+import br.com.fiap.gh.security.certificate.PemUtils;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +12,13 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private final String SECRET_KEY = "12345678901234567890123456789012";
-
-    private Key getKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    private Key getPrivateKey() {
+        return PemUtils.loadPrivateKey("private-key.pem");
     }
 
     public String generateToken(UserDetails userDetails) {
-        return Jwts.builder()
-                .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1 dia
-                .signWith(getKey(), SignatureAlgorithm.HS256)
-                .compact();
+
+        return generateToken(userDetails.getUsername());
     }
 
     public String generateToken(String username) {
@@ -32,13 +26,13 @@ public class JwtService {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000))
-                .signWith(getKey(), SignatureAlgorithm.HS256)
+                .signWith(getPrivateKey(), SignatureAlgorithm.RS256)
                 .compact();
     }
 
     public String extractUsername(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(getKey())
+                .setSigningKey(getPrivateKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
@@ -52,7 +46,7 @@ public class JwtService {
 
     public boolean isExpired(String token) {
         Date expiration = Jwts.parserBuilder()
-                .setSigningKey(getKey())
+                .setSigningKey(getPrivateKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
