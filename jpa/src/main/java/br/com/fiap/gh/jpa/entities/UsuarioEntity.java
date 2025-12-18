@@ -37,6 +37,11 @@ public class UsuarioEntity implements Serializable {
 		this.id = id;
 	}
 
+	public UsuarioEntity(Long id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
+
 	public Long getId() {
 		return id;
 	}

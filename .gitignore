@@ -7,6 +7,8 @@ quarkus-notification/.mvn/
 /jpa/target/
 /jpa/.idea/
 
+*.env
+*/.env
 
 */.idead
 # Compiled class file

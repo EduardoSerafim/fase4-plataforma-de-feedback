@@ -21,6 +21,8 @@ public class FeedbackEntity implements Serializable  {
 
     private LocalDateTime dataEnvio;
 
+    //TODO - falta o curso ou aula da avaliacao e quem e o professor daquela materia pra notificar
+
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;

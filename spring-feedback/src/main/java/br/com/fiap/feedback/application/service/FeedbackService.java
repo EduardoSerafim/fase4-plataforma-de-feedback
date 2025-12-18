@@ -4,6 +4,8 @@ import br.com.fiap.feedback.api.dto.FeedbackRequestDTO;
 import br.com.fiap.feedback.api.dto.FeedbackResponseDTO;
 import br.com.fiap.feedback.api.dto.ResumoSemanalResponseDTO;
 import br.com.fiap.feedback.infrastructure.repository.FeedbackRepository;
+import br.com.fiap.gh.jpa.entities.UsuarioEntity;
+import br.com.fiap.gh.jpa.enums.EnumPrioridade;
 import br.com.fiap.gh.jpa.entities.FeedbackEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,11 @@ import java.util.stream.Collectors;
 public class FeedbackService {
 
     private final FeedbackRepository feedbackRepository;
+    private final NotificationService notificationService;
 
-    public FeedbackService(FeedbackRepository feedbackRepository) {
+    public FeedbackService(FeedbackRepository feedbackRepository, NotificationService notificationService) {
         this.feedbackRepository = feedbackRepository;
+        this.notificationService = notificationService;
     }
 
     public FeedbackResponseDTO criarFeedback(FeedbackRequestDTO dto) {
@@ -29,8 +33,20 @@ public class FeedbackService {
         feedback.setNota(dto.getNota());
         feedback.setUrgencia(definirUrgencia(dto.getNota()));
         feedback.setDataEnvio(LocalDateTime.now());
-        FeedbackEntity salvo = feedbackRepository.save(feedback);
-        return converterParaDTO(salvo);
+        feedback.setUsuario(new UsuarioEntity(1l,"ususario teste revieew avaliacao"));
+        FeedbackEntity feedbackEntity = feedbackRepository.save(feedback);
+
+        sendNotificationToTeacherIfUrgent(feedbackEntity);
+
+        return converterParaDTO(feedbackEntity);
+    }
+
+    private void sendNotificationToTeacherIfUrgent(FeedbackEntity feedback) {
+
+        if(feedback.getUrgencia().equals(EnumPrioridade.ALTA.name())) {
+
+            notificationService.sendNewNotificationWhenUrgent(feedback);
+        }
     }
 
     public List<FeedbackResponseDTO> listarTodos() {
@@ -98,13 +114,12 @@ public class FeedbackService {
     }
 
     private String definirUrgencia(Integer nota) {
-        if (nota >= 0 && nota <= 3) {
-            return "ALTA";
-        }
-        if (nota >= 4 && nota <= 7) {
-            return "MEDIA";
-        }
-        return "BAIXA";
+        if (nota <= 3)
+            return EnumPrioridade.ALTA.name();
+        if ( nota <= 7)
+            return EnumPrioridade.MEDIA.name();
+
+        return EnumPrioridade.BAIXA.name();
     }
 
     private FeedbackResponseDTO converterParaDTO(FeedbackEntity feedback) {
