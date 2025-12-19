@@ -33,7 +33,7 @@ public class FeedbackService {
         feedback.setNota(dto.getNota());
         feedback.setUrgencia(definirUrgencia(dto.getNota()));
         feedback.setDataEnvio(LocalDateTime.now());
-        feedback.setUsuario(new UsuarioEntity(1l,"ususario teste revieew avaliacao"));
+        feedback.setUsuario(new UsuarioEntity(1l,"usuario teste revieew avaliacao"));
         FeedbackEntity feedbackEntity = feedbackRepository.save(feedback);
 
         sendNotificationToTeacherIfUrgent(feedbackEntity);

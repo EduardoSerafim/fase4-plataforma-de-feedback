@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class NotificationHandler {
 
-    private static final PublicKey PUBLIC_KEY = PemUtils.loadPublicKey("public_key.pem");
+    private static final PublicKey PUBLIC_KEY = PemUtils.loadPublicKey("public-key.pem");
 
     private final ObjectMapper mapper = new ObjectMapper();
     private final EmailService emailService = new EmailService();

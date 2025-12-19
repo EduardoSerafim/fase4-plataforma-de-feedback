@@ -40,7 +40,7 @@ public class NotificationService {
 
         try {
 
-            restTemplate.postForObject(
+            var retorno=  restTemplate.postForObject(
                     servelessFunctionNotification,
                     requestContent,
                     String.class
