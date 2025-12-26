@@ -24,23 +24,23 @@ jobs:
           java-version: '21'
           distribution: 'microsoft'
 
-      - name: Build módulo JPA
-        working-directory: JPA
+      - name: Build módulo jpa
+        working-directory: jpa
         run: mvn clean install -DskipTests
 
-      - name: Build módulo Security
-        working-directory: Security
+      - name: Build módulo security
+        working-directory: security
         run: mvn clean install -DskipTests
 
-      - name: Build projeto Spring-Feedback
-        working-directory: Spring-Feedback
+      - name: Build projeto spring-feedback
+        working-directory: spring-feedback
         run: mvn clean package -DskipTests
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: Spring-Feedback/target/*.jar
+          path: spring-feedback/target/*.jar
 
   deploy:
     runs-on: ubuntu-latest
@@ -71,3 +71,4 @@ jobs:
           package: '*.jar'
 
           
+
