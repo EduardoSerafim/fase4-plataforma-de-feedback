@@ -69,7 +69,7 @@
 
         <dependency>
             <groupId>br.com.fiap.jpa</groupId>
-            <artifactId>jpa</artifactId>
+            <artifactId>jpa-gh</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>

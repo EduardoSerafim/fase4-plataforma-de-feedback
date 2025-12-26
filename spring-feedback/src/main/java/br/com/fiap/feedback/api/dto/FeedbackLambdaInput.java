@@ -18,7 +18,7 @@ public class FeedbackLambdaInput {
     public static FeedbackLambdaInput create(FeedbackEntity entity) {
 
         return new FeedbackLambdaInput(entity.getId(), "curso da avaliação",
-                entity.getUsuario().getNome(), entity.getNota(), entity.getDataEnvio(),
+                entity.getAluno().getNome(), entity.getNota(), entity.getDataEnvio(),
                 entity.getDescricao(), "schn.alessandro@gmail.com");
     }
 
