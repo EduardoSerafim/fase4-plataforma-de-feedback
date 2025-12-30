@@ -12,9 +12,14 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private Key getPrivateKey() {
-        return PemUtils.loadPrivateKey("private-key.pem");
+    private final Key signingKey;
+    public JwtService(Key signingKey) {
+        this.signingKey = signingKey;
     }
+//
+//    private Key getPrivateKey() {
+//        return PemUtils.loadPrivateKey("private-key.pem");
+//    }
 
     public String generateToken(UserDetails userDetails) {
 
@@ -26,13 +31,13 @@ public class JwtService {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000))
-                .signWith(getPrivateKey(), SignatureAlgorithm.RS256)
+                .signWith(signingKey, SignatureAlgorithm.RS256)
                 .compact();
     }
 
     public String extractUsername(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(getPrivateKey())
+                .setSigningKey(signingKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
@@ -46,7 +51,7 @@ public class JwtService {
 
     public boolean isExpired(String token) {
         Date expiration = Jwts.parserBuilder()
-                .setSigningKey(getPrivateKey())
+                .setSigningKey(signingKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
