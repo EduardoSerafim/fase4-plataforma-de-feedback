@@ -3,10 +3,10 @@ package br.com.fiap.feedback.application.service;
 import br.com.fiap.feedback.api.dto.FeedbackLambdaInput;
 import br.com.fiap.gh.jpa.entities.FeedbackEntity;
 import br.com.fiap.gh.security.JwtService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -16,10 +16,7 @@ public class NotificationService {
 
     private final AuthenticationService authenticationService;
     private final RestTemplate restTemplate = new RestTemplate();
-
-    private final String servelessFunctionNotification
-            = "https://gfxs3x7yytoc3zysfgoo7rhdhy0fpczu.lambda-url.us-east-1.on.aws/";
-//            System.getenv( "AWS_LAMBDA_NOTIFICATION_URL");
+    @Value("${aws-lambda-notification-url}") String servelessFunctionNotification;
 
     public NotificationService( AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;

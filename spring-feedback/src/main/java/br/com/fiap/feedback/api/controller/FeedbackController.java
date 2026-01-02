@@ -1,5 +1,6 @@
 package br.com.fiap.feedback.api.controller;
 
+import br.com.fiap.feedback.api.doc.FeedbackDocController;
 import br.com.fiap.feedback.api.dto.FeedbackRequestDTO;
 import br.com.fiap.feedback.api.dto.FeedbackResponseDTO;
 import br.com.fiap.feedback.application.service.FeedbackService;
@@ -8,12 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import br.com.fiap.feedback.api.dto.ResumoSemanalResponseDTO;
 
 import java.time.LocalDate;
@@ -21,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/avaliacao")
-public class FeedbackController {
+public class FeedbackController implements FeedbackDocController {
 
     private final FeedbackService feedbackService;
 
@@ -30,7 +26,7 @@ public class FeedbackController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ALUNO')")
+//    @PreAuthorize("hasRole('ALUNO')")
     public ResponseEntity<FeedbackResponseDTO> criar(@Valid @RequestBody FeedbackRequestDTO dto) {
         FeedbackResponseDTO resposta = feedbackService.criarFeedback(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
@@ -61,6 +57,20 @@ public class FeedbackController {
     public ResponseEntity<ResumoSemanalResponseDTO> resumoSemanal() {
         ResumoSemanalResponseDTO resumo = feedbackService.gerarResumoSemanal();
         return ResponseEntity.ok(resumo);
+    }
+
+    @DeleteMapping("/{feedbackId}")
+    public ResponseEntity<String> deletar(@PathVariable(required = true) Long feedbackId) {
+
+        feedbackService.deletarFeedback(feedbackId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Avaliação deletada com sucesso.");
+    }
+
+    @GetMapping("/{feedbackId}")
+    public ResponseEntity<FeedbackResponseDTO> buscarAvalicaoPorId(@PathVariable(required = true) Long feedbackId) {
+
+        var response = feedbackService.buscarFeedbackPorId(feedbackId);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }

@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"feedbackId\": 1,\r\n  \"curso\": \"Java Spring Boot\",\r\n  \"aluno\": \"João da Silva\",\r\n  \"notaAvaliacao\": 5,\r\n  \"dataAvalicacao\": \"2025-12-17T14:30:00\",\r\n  \"comentario\": \"Curso excelente, conteúdo bem explicado e prático.\",\r\n \"emailDestinatario\": \"schn.alessandro@gmail.com\"\r\n}\r\n",
+							"raw": "{\r\n  \"feedbackId\": 1,\r\n  \"curso\": \"Java Spring Boot\",\r\n  \"aluno\": \"João da Silva\",\r\n  \"notaAvaliacao\": 1,\r\n  \"dataAvalicacao\": \"2025-12-17T14:30:00\",\r\n  \"comentario\": \"Curso bosta.\",\r\n \"emailDestinatario\": \"schn.alessandro@gmail.com\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -43,185 +43,1057 @@
 			]
 		},
 		{
-			"name": "post avaliacao",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"descricao\" : \"avaliacao top\",\r\n    \"nota\" : 10\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "CRUD Permissões",
+			"item": [
+				{
+					"name": "get permissoes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/permissoes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"permissoes"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://api.schneider.dev.br/feedback/avaliacao",
-					"protocol": "https",
-					"host": [
-						"api",
-						"schneider",
-						"dev",
-						"br"
-					],
-					"path": [
-						"feedback",
-						"avaliacao"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get avaliacao",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"descricao\" : \"avaliacao mal feita\",\r\n    \"nota\" : 2\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "save permissao",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"idTransacao\", response.id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8081/avaliacao",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "8081",
-					"path": [
-						"avaliacao"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get usuarios",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "novo-recurso",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/permissoes",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"permissoes"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{host}}{{contextPath}}/usuarios",
-					"host": [
-						"{{host}}{{contextPath}}"
+				{
+					"name": "atualizar permissao",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"idPerfil\", response.id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
 					],
-					"path": [
-						"usuarios"
-					]
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "de rerere para novo",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/permissoes/{{idPermissao}}",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"permissoes",
+								"{{idPermissao}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete permissao",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/permissoes/{{idPermissao}}",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"permissoes",
+								"{{idPermissao}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get permissao by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/permissoes/{{idPermissao}}",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"permissoes",
+								"{{idPermissao}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "inserir usuario",
+			],
 			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
 				{
 					"listen": "test",
 					"script": {
-						"exec": [
-							"\r",
-							"// Verifica se o status da resposta é 201\r",
-							"pm.test(\"Status code é 201 - Created\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Resposta contém ID do novo recurso\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.property(\"id\");\r",
-							"});\r",
-							"\r",
-							"let response = pm.response.json();\r",
-							"pm.environment.set(\"usuarioId\", response.id);\r",
-							""
-						],
 						"type": "text/javascript",
 						"packages": {},
-						"requests": {}
+						"requests": {},
+						"exec": [
+							""
+						]
 					}
 				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{tokenJwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"Run Teste 2\", \r\n    \"login\": \"run02\",\r\n    \"senha\": \"RunTeste@1\",\r\n    \"email\" : \"teste@teste.com\",\r\n    \"perfis\": [\"enfermeiro\",\"paciente\"]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/usuarios",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"usuarios"
-					]
-				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "test public link",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"descricao\" : \"avaliacao top\",\r\n    \"nota\" : 10\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "CRUD Perfis",
+			"item": [
+				{
+					"name": "get perfis",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/perfis",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"perfis"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8081/avaliacao",
-					"protocol": "http",
-					"host": [
-						"localhost"
+				{
+					"name": "get perfil by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/perfis/{{idPerfil}}",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"perfis",
+								"{{idPerfil}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete perfil",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/perfis/{{idPerfil}}",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"perfis",
+								"{{idPerfil}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save perfil",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"idPerfil\", response.id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
 					],
-					"port": "8081",
-					"path": [
-						"avaliacao"
-					]
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "novo",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/perfis",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"perfis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar perfil",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"idPerfil\", response.id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "de rerere para novo",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/perfis/{{idPerfil}}",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"perfis",
+								"{{idPerfil}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Perfil x Permissão",
+			"item": [
+				{
+					"name": "get perfis x permissao",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/perfis/{{idPerfil}}/permissoes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"perfis",
+								"{{idPerfil}}",
+								"permissoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar permissao ao perfil",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n    \"recurso\" : \"novo-recurso\",\r\n    \"view\" :true,\r\n    \"insert\" : true,\r\n    \"update\" : true,\r\n    \"delete\" : true\r\n },{\r\n    \"recurso\" : \"segundo-recurso\",\r\n    \"view\" :true,\r\n    \"insert\" : false,\r\n    \"update\" : false,\r\n    \"delete\" : false\r\n}\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/perfis/{{idPerfil}}/permissoes",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"perfis",
+								"{{idPerfil}}",
+								"permissoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remover permissao perfil",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"segundo-recurso\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/perfis/{{idPerfil}}/permissoes",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"perfis",
+								"{{idPerfil}}",
+								"permissoes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CRUD Feedback",
+			"item": [
+				{
+					"name": "post avaliacao",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Testando call\",\r\n    \"professor\": 2,\r\n    \"disciplina\": \"Cloud compuiter\",\r\n    \"nota\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/avaliacao",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"avaliacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get avaliacoes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\" : \"avaliacao mal feita\",\r\n    \"nota\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/avaliacao",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"avaliacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get avaliacao by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/avaliacao/{{idAvaliacao}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"avaliacao",
+								"{{idAvaliacao}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apagar avaliacao",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 204 - No Content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/avaliacao/{{idAvaliacao}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"avaliacao",
+								"{{idAvaliacao}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CRUD Usuários",
+			"item": [
+				{
+					"name": "get usuarios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/usuarios",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuario by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Resposta contém nome do restaurante\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"nome\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/usuarios/{{idUsuario}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"usuarios",
+								"{{idUsuario}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inserir usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Resposta contém ID do novo recurso\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"});\r",
+									"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"usuarioId\", response.id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Run Teste 2\", \r\n    \"login\": \"run02\",\r\n    \"senha\": \"RunTeste@1\",\r\n    \"email\" : \"teste@teste.com\",\r\n    \"perfis\": [\"enfermeiro\",\"paciente\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/usuarios",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200 - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Run Teste Atualizado\",\r\n    \"email\": \"schn.alessandro@gmail.com\",\r\n    \"login\": \"run01\",\r\n    \"perfis\": [\r\n        \"DONO\",\"ALUNO\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/usuarios/{{usuarioId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"usuarios",
+								"{{usuarioId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apagar usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 204 - No Content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{contextPath}}/usuarios/{{usuarioId}}",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"usuarios",
+								"{{usuarioId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alterar senha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 204 - no content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"senhaAntiga\": \"RunTeste@1\",\r\n    \"senhaNova\": \"@New12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/usuarios/{{usuarioId}}/mudar-senha",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"usuarios",
+								"{{usuarioId}}",
+								"mudar-senha"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar perfis",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/usuarios/{{idUsuario}}/perfis",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"usuarios",
+								"{{idUsuario}}",
+								"perfis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salvar perfis",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica se o status da resposta é 201\r",
+									"pm.test(\"Status code é 201 - Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"ALUNO\"]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/usuarios/{{idUsuario}}/perfis",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"usuarios",
+								"{{idUsuario}}",
+								"perfis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apagar perfis",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 204 - No Content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenJwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"perfis\" : [\"CLIENTE\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}{{contextPath}}/usuarios/{{idUsuario}}/perfil",
+							"host": [
+								"{{host}}{{contextPath}}"
+							],
+							"path": [
+								"usuarios",
+								"{{idUsuario}}",
+								"perfil"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "login ADM",
@@ -278,6 +1150,16 @@
 			"response": []
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{tokenJwt}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -310,6 +1192,27 @@
 		{
 			"key": "tokenJwt",
 			"value": ""
+		},
+		{
+			"key": "idPerfil",
+			"value": ""
+		},
+		{
+			"key": "idUsuario",
+			"value": ""
+		},
+		{
+			"key": "idPermissao",
+			"value": ""
+		},
+		{
+			"key": "idTransacao",
+			"value": ""
+		},
+		{
+			"key": "idAvaliacao",
+			"value": "",
+			"type": "default"
 		}
 	]
 }

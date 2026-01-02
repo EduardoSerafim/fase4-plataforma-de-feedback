@@ -8,7 +8,7 @@ public class FeedbackLambdaInput {
 
     public Long feedbackId;
 
-    public String curso;
+    public String disciplina;
     public String aluno;
     public Integer notaAvaliacao;
     public LocalDateTime dataAvalicacao;
@@ -17,14 +17,14 @@ public class FeedbackLambdaInput {
 
     public static FeedbackLambdaInput create(FeedbackEntity entity) {
 
-        return new FeedbackLambdaInput(entity.getId(), "curso da avaliação",
-                entity.getUsuario().getNome(), entity.getNota(), entity.getDataEnvio(),
-                entity.getDescricao(), "schn.alessandro@gmail.com");
+        return new FeedbackLambdaInput(entity.getId(), entity.getDisciplina(),
+                entity.getAluno().getNome(), entity.getNota(), entity.getDataEnvio(),
+                entity.getDescricao(), entity.getProfessor().getEmail());
     }
 
-    public FeedbackLambdaInput(Long feedbackId, String curso, String aluno, Integer notaAvaliacao, LocalDateTime dataAvalicacao, String comentario, String emailDestinatario) {
+    public FeedbackLambdaInput(Long feedbackId, String disciplina, String aluno, Integer notaAvaliacao, LocalDateTime dataAvalicacao, String comentario, String emailDestinatario) {
         this.feedbackId = feedbackId;
-        this.curso = curso;
+        this.disciplina = disciplina;
         this.aluno = aluno;
         this.notaAvaliacao = notaAvaliacao;
         this.dataAvalicacao = dataAvalicacao;

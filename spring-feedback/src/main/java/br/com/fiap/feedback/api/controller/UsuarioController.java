@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -31,7 +32,16 @@ public class UsuarioController implements UsuarioDocController {
     @Override
     @GetMapping("/{usuarioId}")
     public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable(required = true) Long usuarioId) {
-        var response = service.getUsuarioById(usuarioId);
+        var usuario = service.getUsuarioById(usuarioId);
+
+        var response = new UsuarioResponseDTO(
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getLogin(),
+                usuario.getEmail(),
+                usuario.getPerfis().stream().map(p -> p.getPerfil().getDescricao()).collect(Collectors.toSet())
+        );
+
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

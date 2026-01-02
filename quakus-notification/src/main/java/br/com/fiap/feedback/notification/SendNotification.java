@@ -2,7 +2,6 @@ package br.com.fiap.feedback.notification;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import jakarta.inject.Inject;
 
 import javax.print.DocFlavor;
 
