@@ -5,9 +5,12 @@ import java.time.LocalDateTime;
 public class FeedbackResponseDTO {
 
     private Long id;
+    private String disciplina;
     private String descricao;
     private Integer nota;
     private String urgencia;
+    private String aluno;
+    private String professor;
     private LocalDateTime dataEnvio;
 
     public Long getId() {
@@ -16,6 +19,30 @@ public class FeedbackResponseDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(String disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public String getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(String aluno) {
+        this.aluno = aluno;
+    }
+
+    public String getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(String professor) {
+        this.professor = professor;
     }
 
     public String getDescricao() {

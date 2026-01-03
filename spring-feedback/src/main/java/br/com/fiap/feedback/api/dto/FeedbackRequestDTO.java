@@ -7,16 +7,16 @@ import jakarta.validation.constraints.NotNull;
 
 public class FeedbackRequestDTO {
 
-    @NotBlank
+    @NotBlank(message = "Descreva sua avaliação.")
     private String descricao;
 
-    @NotBlank
+    @NotBlank(message = "Descreva qual disciplina está sendo avaliada.")
     private String disciplina;
 
-    @NotBlank
-    private Integer professor;
+    @NotNull(message = "Informe o ID do professor avaliado.")
+    private Long professor;
 
-    @NotNull
+    @NotNull(message = "Forneça uma nota de 0 a 10.")
     @Min(0)
     @Max(10)
     private Integer nota;
@@ -35,5 +35,21 @@ public class FeedbackRequestDTO {
 
     public void setNota(Integer nota) {
         this.nota = nota;
+    }
+
+    public @NotBlank(message = "Descreva qual disciplina está sendo avaliada.") String getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(@NotBlank(message = "Descreva qual disciplina está sendo avaliada.") String disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public @NotNull(message = "Informe o ID do professor avaliado.") Long getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(@NotNull(message = "Informe o ID do professor avaliado.") Long professor) {
+        this.professor = professor;
     }
 }

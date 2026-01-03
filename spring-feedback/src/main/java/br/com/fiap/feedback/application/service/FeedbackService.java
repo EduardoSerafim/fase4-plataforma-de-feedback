@@ -22,13 +22,15 @@ public class FeedbackService {
     private final FeedbackRepository feedbackRepository;
     private final NotificationService notificationService;
     private final AuthenticationService authenticationService;
+    private final UsuarioService usuarioService;
 
     public FeedbackService(FeedbackRepository feedbackRepository,
                            NotificationService notificationService,
-                           AuthenticationService authenticationService) {
+                           AuthenticationService authenticationService, UsuarioService usuarioService) {
         this.feedbackRepository = feedbackRepository;
         this.notificationService = notificationService;
         this.authenticationService = authenticationService;
+        this.usuarioService = usuarioService;
     }
 
     public FeedbackResponseDTO criarFeedback(FeedbackRequestDTO dto) {
@@ -38,7 +40,8 @@ public class FeedbackService {
         feedback.setNota(dto.getNota());
         feedback.setUrgencia(definirUrgencia(dto.getNota()));
         feedback.setDataEnvio(LocalDateTime.now());
-
+        feedback.setDisciplina(dto.getDisciplina());
+        feedback.setProfessor( usuarioService.getUsuarioById( dto.getProfessor()));
         feedback.setAluno( recuperarAlunoLogado() );
         FeedbackEntity feedbackEntity = feedbackRepository.save(feedback);
 
@@ -65,6 +68,12 @@ public class FeedbackService {
                 .stream()
                 .map(this::converterParaDTO)
                 .toList();
+    }
+
+    public FeedbackResponseDTO buscarFeedbackPorId( Long idFeedback) {
+        var entity = feedbackRepository.findById(idFeedback);
+
+        return entity.map(this::converterParaDTO).orElse(null);
     }
 
     public List<FeedbackResponseDTO> listarPorUrgencia(String urgencia) {
@@ -136,11 +145,23 @@ public class FeedbackService {
     private FeedbackResponseDTO converterParaDTO(FeedbackEntity feedback) {
         FeedbackResponseDTO resposta = new FeedbackResponseDTO();
         resposta.setId(feedback.getId());
+        resposta.setDisciplina(feedback.getDisciplina());
         resposta.setDescricao(feedback.getDescricao());
         resposta.setNota(feedback.getNota());
         resposta.setUrgencia(feedback.getUrgencia());
         resposta.setDataEnvio(feedback.getDataEnvio());
+
+        if(feedback.getAluno() != null)
+            resposta.setAluno(feedback.getAluno().getNome());
+
+        if(feedback.getProfessor() != null)
+            resposta.setProfessor(feedback.getProfessor().getNome());
         return resposta;
+    }
+
+    public void deletarFeedback(Long feedbackId) {
+
+        feedbackRepository.deleteById(feedbackId);
     }
 }
 

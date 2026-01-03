@@ -38,16 +38,10 @@ public class UsuarioService {
     }
 
 
-    public UsuarioResponseDTO getUsuarioById(Long usuarioId) {
+    public UsuarioEntity getUsuarioById(Long usuarioId) {
 
         var user = repository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        return new UsuarioResponseDTO(
-                user.getId(),
-                user.getNome(),
-                user.getLogin(),
-                user.getEmail(),
-                user.getPerfis().stream().map(p -> p.getPerfil().getDescricao()).collect(Collectors.toSet())
-        );
+        return user;
     }
 
     public UsuarioResponseDTO cadastrarUsuario(UsuarioInsertDTO usuarioDTO) {
