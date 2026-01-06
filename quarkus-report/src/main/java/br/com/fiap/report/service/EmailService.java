@@ -1,5 +1,6 @@
-package br.com.fiap.report;
+package br.com.fiap.report.service;
 
+import br.com.fiap.report.dto.MailDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.mail.*;

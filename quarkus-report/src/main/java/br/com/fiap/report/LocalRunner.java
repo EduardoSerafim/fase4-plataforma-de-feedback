@@ -1,5 +1,6 @@
 package br.com.fiap.report;
 
+import br.com.fiap.report.service.FeedbackService;
 import io.quarkus.arc.profile.IfBuildProfile;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

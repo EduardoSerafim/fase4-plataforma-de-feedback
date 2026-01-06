@@ -1,6 +1,6 @@
-package br.com.fiap.report;
+package br.com.fiap.report.repository;
 
-import br.com.fiap.gh.jpa.entities.FeedbackEntity;
+import br.com.fiap.report.dto.ReportDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import javax.sql.DataSource;
 import jakarta.inject.Inject;
