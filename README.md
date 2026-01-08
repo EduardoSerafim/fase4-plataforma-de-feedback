@@ -1,18 +1,7 @@
 # Fase 4 - Plataforma de Feedback
 Projeto desenvolvido no Tech Challenge Fase 4 da Pós em Arquitetura e Desenvolvimento JAVA - FIAP
 
-
-Aplicação backend em Spring Boot para receber e consultar feedbacks de alunos sobre as aulas.
-
-## Funcionalidades já implementadas:
-- Cadastro de feedback com descrição, nota, urgência automática e data de envio;
-- Listagem de feedbacks;
-- Filtro por urgência;
-- Filtro por período;
-- Resumo semanal;
-- Spring Security;
-- Testes unitários e de integração;
-- Docker.
+Aplicação backend em Java, Spring Boot, Quarkus e Cloud para receber e consultar feedbacks de alunos sobre as aulas.
 
 **Branch principal: main**
 
@@ -72,15 +61,3 @@ curl -u admin:Admin@123 "http://localhost:8081/avaliacao/por-periodo?dataInicio=
 ```
 curl -u admin:Admin@123 http://localhost:8081/avaliacao/resumo-semanal
 ```
-
-## O que falta para entregar a Fase 4
-
-- Escolher cloud;
-- Criar ambiente cloud com banco gerenciado;
-- Implementar funções serverless (mínimo 2);
-- Criar agendamento na nuvem para gerar relatório semanal;
-- Criar notificações automáticas;
-- Monitoramento e logs em cloud;
-- CI/CD para deploy;
-- Documentação;
-- Vídeo.
