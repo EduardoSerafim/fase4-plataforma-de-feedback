@@ -49,9 +49,9 @@ public class FeedbackService {
 
         corpo += "Sua disciplina de <b>"+reportDTO.disciplina()+"</b> recebeu uma nota média de <b>"+reportDTO.media_avaliacoes()+"</b> nas avaliações!<br/>";
 
-        corpo += "Resumo dos comentários: <b>"+resumo+"</b>.<br/>";
+        corpo += "Resumo dos comentários: <b>"+resumo+"</b>.<br/><br/>";
 
-        corpo += "Em breve enviaremos um resumo com os principais comentários.";
+        corpo += "Atenciosamente, Equipe do Feedback";
 
         return corpo;
     }

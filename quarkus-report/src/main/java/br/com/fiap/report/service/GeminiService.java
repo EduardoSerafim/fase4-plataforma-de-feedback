@@ -2,18 +2,22 @@ package br.com.fiap.report.service;
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentResponse;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import java.util.List;
 
 @ApplicationScoped
 public class GeminiService {
-
-    private static final String API_KEY = "AIzaSyAcw2h-2vpd63X-9ImDIUwI9Y0jWwD-CqE";
+    @Inject
+    @ConfigProperty(name = "gemini.api.key")
+    String geminiApiKey;
 
     public String resumirComentarios(List<String> comentarios) {
         try {
             String prompt = montarPrompt(comentarios);
             Client client = Client.builder()
-                    .apiKey(API_KEY)
+                    .apiKey(geminiApiKey)
                     .build();
 
             GenerateContentResponse response =
